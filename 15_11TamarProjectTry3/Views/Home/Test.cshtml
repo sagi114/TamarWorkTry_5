@@ -1,0 +1,43 @@
+﻿@model _15_11TamarProjectTry3.Models.QuizResult
+@{
+    ViewData["Title"] = "Test";
+}
+    <script>
+        $(document).ready(function () {
+            document.getElementById("AnswerOne").value = "";
+            document.getElementById("AnswerTwo").value = "";
+        });
+    </script>
+        <div class="FormDiv">
+            <form onload="ClearText()">
+                <div>
+                    <strong>@ViewBag.QuestionNumber. </strong>@Html.DisplayNameFor(Qinfo => Qinfo.QuestionOnTest.Question)
+                    
+                    @Html.DisplayFor(Qinfo => Qinfo.QuestionOnTest.Question)
+                </div>
+                <div>
+                    <strong>
+                        @Html.DisplayFor(Qinfo => Qinfo.QuestionOnTest.VerbToChange)
+                        <input class="text-box single-line" id="AnswerOne" name="AnswerOne" type="text" value=""  autocomplete = "off"/>
+                        @*@Html.EditorFor(Qinfo => Qinfo.AnswerOne, new { autocomplete = "off" })*@
+                    </strong>
+                </div>
+                @if (Model.QuestionOnTest.SecondVerbToChange != null)
+                {
+                    <div>
+                        <strong>
+                            @Html.DisplayFor(Qinfo => Qinfo.QuestionOnTest.SecondVerbToChange)
+                            @*@Html.EditorFor(Qinfo => Qinfo.AnswerTwo, new { autocomplete = "off" })*@
+                            <input class="text-box single-line" id="AnswerTwo" name="AnswerTwo" type="text" value="" autocomplete = "off"/>
+                        </strong>
+                    </div>
+                }
+                <input type="submit" />
+            </form>
+        </div>
+        
+    
+    
+
+        
+

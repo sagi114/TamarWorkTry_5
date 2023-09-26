@@ -1,0 +1,96 @@
+﻿@model _15_11TamarProjectTry3.Models.Student
+@{
+    ViewData["Title"] = "Index";
+}
+<div >
+    <div class="FormDiv">
+        <h5>Student Information:</h5>
+        <div>
+            @Html.DisplayNameFor(s => s.FirstName)
+            @Html.DisplayFor(s => s.FirstName)
+        </div>
+        <div>
+            @Html.DisplayNameFor(s => s.LastName)
+            @Html.DisplayFor(s => s.LastName)
+        </div>
+        <div>
+            @Html.DisplayNameFor(s => s.MyId)
+            @Html.DisplayFor(s => s.MyId)
+        </div>
+    </div>
+    <div class="FormAnswer">
+        <table>
+            <thead>
+                <tr>
+                    <th>Question Number</th>
+                    <th>@Html.DisplayNameFor(s => s.StudentsQuestionInfo.FirstOrDefault().AnswerOne)</th>
+                    <th>@Html.DisplayNameFor(s => s.StudentsQuestionInfo.FirstOrDefault().QuestionOnTest.CorrectAnswer)</th>
+                    <th>@Html.DisplayNameFor(s => s.StudentsQuestionInfo.FirstOrDefault().AnswerTwo)</th>
+                    <th>@Html.DisplayNameFor(s => s.StudentsQuestionInfo.FirstOrDefault().QuestionOnTest.SecondCorrectAnswer)</th>
+                    <th>@Html.DisplayNameFor(s => s.StudentsQuestionInfo.FirstOrDefault().Time)</th>
+                    <th>Grade</th>
+                </tr>
+            </thead>
+            @foreach (var item in Model.StudentsQuestionInfo.OrderBy(s => s.QuestionOnTestId))
+            {
+                <tr>
+                    <th>@item.QuestionOnTestId</th>
+                    <th>@item.AnswerOne</th>
+                    <th>@item.QuestionOnTest.CorrectAnswer</th>
+                    <th>@item.AnswerTwo</th>
+                    <th>@item.QuestionOnTest.SecondCorrectAnswer</th>
+                    <th>@item.Time</th>
+                    <th>
+                        @if (item.AnswerOne == null && item.AnswerTwo == null)
+                        {
+                            <span>0</span>
+                        }
+                        else
+                        {
+                            if (item.AnswerOne != null && item.AnswerTwo != null)
+                            {
+                                @if (item.AnswerOne == item.QuestionOnTest.CorrectAnswer)
+                                {
+                                    if (item.AnswerTwo== item.QuestionOnTest.SecondCorrectAnswer)
+                                    {<span>2</span>}
+                                    else
+                                    { <span>1</span>}
+                                }
+                                else
+                                {
+                                    if (item.AnswerTwo == item.QuestionOnTest.SecondCorrectAnswer)
+                                    { <span>1</span>}
+                                    else
+                                    { <span>0</span>}
+                                }
+                            }
+                            else
+                            {
+                                if (item.AnswerOne != null && item.AnswerTwo == null || item.AnswerOne == null && item.AnswerTwo != null)
+                                {
+                                    if (item.AnswerOne != null && item.AnswerTwo == null)
+                                    {
+                                        if (item.AnswerOne == item.QuestionOnTest.CorrectAnswer)
+                                        { <span>1</span>}
+                                        else
+                                        { <span>0</span>}
+                                    }
+                                    else
+                                    {
+                                        if (item.AnswerTwo == item.QuestionOnTest.SecondCorrectAnswer)
+                                        { <span>1</span>}
+                                        else
+                                        { <span>0</span>}
+
+                                    }
+                                }
+                                else
+                                { <span>0</span>}
+                            }
+                        }
+                    </th>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
